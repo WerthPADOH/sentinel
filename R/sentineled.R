@@ -12,9 +12,22 @@ sentineled.default <- function(x, sentinels, labels, ...) {
   attributes(s) <- attributes(x)
   sents <- factor(labels[sentinel_id], union("", labels))
   sents[!is.na(x)] <- ""
-  attr(s, "sentinels") <- sents
-  class(s) <- c("sentineled", class(s))
-  s
+  create_sentineled(x, sents)
+}
+
+
+#' Internal function to simplify creation
+#' @noRd
+create_sentineled <- function(x, sentinels) {
+  x_num <- as.numeric(x)
+  structure(
+    .Data     = x_num,
+    sentinels = sentinels,
+    class     = "sentineled",
+    names     = names(x),
+    dim       = dim(x),
+    dimnames  = dimnames(x)
+  )
 }
 
 
@@ -39,9 +52,7 @@ sentineled.numeric <- function(x, sentinels, labels, ...) {
   x[!is.na(sentinel_id)] <- NA
   sents <- factor(labels[sentinel_id], union("", labels))
   sents[!is.na(x)] <- ""
-  attr(x, "sentinels") <- sents
-  class(x) <- c("sentineled", class(x))
-  x
+  create_sentineled(x, sents)
 }
 
 
@@ -100,20 +111,14 @@ levels.sentineled <- function(x) {
 #' @noRd
 #' @export
 `[.sentineled` <- function(x, i) {
-  xi_num <- as.numeric(x)[i]
-  s <- sentineled(xi_num, levels(x)[-1L])
-  attr(s, "sentinels") <- sentinels(x)[i]
-  s
+  create_sentineled(as.numeric(x)[i], sentinels(x)[i])
 }
 
 
 #' @noRd
 #' @export
 `[[.sentineled` <- function(x, i, exact = TRUE) {
-  s <- as.numeric(x)[[i]]
-  attr(s, "sentinels") <- sentinels(x)[i]
-  class(s) <- c("sentineled", class(s))
-  s
+  create_sentineled(as.numeric(x)[[i]], sentinels(x)[i])
 }
 
 
@@ -128,12 +133,7 @@ levels.sentineled <- function(x) {
   x_num <- as.numeric(x)
   x_num[i][!is_value] <- NA
   x_num[i][is_value] <- as.numeric(value[is_value])
-  structure(
-    .Data = x_num,
-    names = names(x),
-    sentinels = x_sent,
-    class = c("sentineled", class(x_num))
-  )
+  create_sentineled(x_num, x_sent)
 }
 
 
@@ -154,12 +154,7 @@ levels.sentineled <- function(x) {
   x_sent[[i]] <- new_sent
   x_num <- as.numeric(x)
   x_num[[i]] <- new_value
-  structure(
-    .Data = x_num,
-    names = names(x),
-    sentinels = x_sent,
-    class = c("sentineled", class(x_num))
-  )
+  create_sentineled(x_num, x_sent)
 }
 
 

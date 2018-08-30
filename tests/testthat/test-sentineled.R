@@ -42,12 +42,16 @@ test_that("subset assignment results in valid value/sentinel pairs", {
   expect_identical(sentinels(s)[2], sentinels(s)[4])
 })
 
-test_that("Conversion to sentineled retains attributes", {
-  n <- setNames(1:26, letters)
-  attr(n, "pet") <- "dog"
+test_that("Conversion to sentineled retains certain attributes", {
+  n <- 1:26
+  names(n) <- letters
   s <- sentineled(n, 1)
   expect_named(s, letters)
-  expect_identical(attr(s, "pet"), "dog")
+  dim(n) <- c(13, 2)
+  dimnames(n) <- list(1:13, 1:2)
+  s <- sentineled(n, 1)
+  expect_identical(dim(s), dim(n))
+  expect_identical(dimnames(s), dimnames(n))
 })
 
 test_that("format.sentineled works", {

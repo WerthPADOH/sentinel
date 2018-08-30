@@ -21,7 +21,7 @@ create_sentineled <- function(x, sentinels) {
   structure(
     .Data     = x_num,
     sentinels = sentinels,
-    class     = "sentineled",
+    class     = c("sentineled", "numeric"),
     names     = names(x),
     dim       = dim(x),
     dimnames  = dimnames(x)

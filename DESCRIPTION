@@ -1,0 +1,12 @@
+Package: sentineled
+Type: Package
+Title: Class for numeric values with different types of missing
+Version: 0.1.0
+Author: Nathan Werth
+Maintainer: Nathan Werth <nwerth@pa.gov>
+Description: This package provides the S3 class "sentineled," which is a numeric
+  vector that can differentiate between different kinds of missing values.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1

@@ -12,7 +12,7 @@ Clever is bad. Code with `my_data[, paste0(vars, c("_num", "_flag"))]` is hard t
 The `sentinel` package offers the `sentineled` class to bundle numeric and categorical missing values into a single object.
 
 ``` r
-library(sentineled)
+library(sentinel)
 
 x <- sentineled(
   c(10, 20, 98, 99, NA),
@@ -38,24 +38,28 @@ x[1]
 ```
 
     ## [1] 10
+    ## sentinel values: "" "refused" "not recorded"
 
 ``` r
 x[1:2]
 ```
 
     ## [1] 10 20
+    ## sentinel values: "" "refused" "not recorded"
 
 ``` r
 x[[3]]
 ```
 
-    ## [1] NA
+    ## [1] <refused>
+    ## sentinel values: "" "refused" "not recorded"
 
 ``` r
 x[x < 15]
 ```
 
-    ## [1] 10 NA NA NA
+    ## [1] 10             <refused>      <not recorded> NA            
+    ## sentinel values: "" "refused" "not recorded"
 
 A `sentineled` vector can be used in arithmetic, with all non-missing values acting like normal numeric values. If possible, a `sentineled` object with the appropriate sentinel values will be the result.
 
@@ -89,7 +93,8 @@ sentinels(x)
 x[sentinels(x) != "refused"]
 ```
 
-    ## [1] 10 20 NA NA
+    ## [1] 10             20             <not recorded> NA            
+    ## sentinel values: "" "refused" "not recorded"
 
 Notice that, for the non-missing values in `x`, their respective sentinel codes are blanks (`""`).
 

@@ -24,7 +24,7 @@ The `sentinel` package offers the `sentineled` class to bundle numeric and
 categorical missing values into a single object.
 
 ```{r sentineled}
-library(sentineled)
+library(sentinel)
 
 x <- sentineled(
   c(10, 20, 98, 99, NA),

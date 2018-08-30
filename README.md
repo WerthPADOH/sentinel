@@ -77,6 +77,20 @@ x / 100
     ## [5] NA            
     ## sentinel values: "" "refused" "not recorded"
 
+It can even be a column in a `data.frame`.
+
+``` r
+data.frame(
+  element = c("argon", "boron", "chlorine"),
+  mass    = sentineled(c(3, "x", 8), "x", "scale malfunction")
+)
+```
+
+    ##    element                mass
+    ## 1    argon                   3
+    ## 2    boron <scale malfunction>
+    ## 3 chlorine                   8
+
 Using the missing values
 ------------------------
 

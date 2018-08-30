@@ -53,9 +53,18 @@ A `sentineled` vector can be used in arithmetic, with all non-missing values
 acting like normal numeric values. If possible, a `sentineled` object with the
 appropriate sentinel values will be the result.
 
-```{r sentineledArithmetic}
+```{r arithmetic}
 mean(x, na.rm = TRUE)
 x / 100
+```
+
+It can even be a column in a `data.frame`.
+
+```{r dataframe}
+data.frame(
+  element = c("argon", "boron", "chlorine"),
+  mass    = sentineled(c(3, "x", 8), "x", "scale malfunction")
+)
 ```
 
 ## Using the missing values

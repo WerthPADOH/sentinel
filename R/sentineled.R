@@ -123,8 +123,8 @@ levels.sentineled <- function(x) {
 #' @export
 `[[.sentineled` <- function(x, i, exact = TRUE) {
   create_sentineled(
-    as.numeric(x)[[i, exact = exact]],
-    sentinels(x)[i, exact = exact]
+    as.numeric(x)[[i]],
+    sentinels(x)[i]
   )
 }
 

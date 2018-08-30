@@ -8,8 +8,6 @@ sentineled.default <- function(x, sentinels, labels, ...) {
   }
   sentinel_id <- match(x, sentinels)
   x[!is.na(sentinel_id)] <- NA
-  s <- as.numeric(x)
-  attributes(s) <- attributes(x)
   sents <- factor(labels[sentinel_id], union("", labels))
   sents[!is.na(x)] <- ""
   create_sentineled(x, sents)

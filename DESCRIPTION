@@ -1,4 +1,4 @@
-Package: sentineled
+Package: sentinel
 Type: Package
 Title: Class for numeric values with different types of missing
 Version: 0.1.0

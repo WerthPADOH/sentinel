@@ -111,14 +111,23 @@ levels.sentineled <- function(x) {
 #' @noRd
 #' @export
 `[.sentineled` <- function(x, i) {
-  create_sentineled(as.numeric(x)[i], sentinels(x)[i])
+  x_subset  <- as.numeric(x)[i]
+  sent_subset <- if (is.logical(i)) {
+    sentinels(x)[i | is.na(i)]
+  } else {
+    sentinels(x)[i]
+  }
+  create_sentineled(x_subset, sent_subset)
 }
 
 
 #' @noRd
 #' @export
 `[[.sentineled` <- function(x, i, exact = TRUE) {
-  create_sentineled(as.numeric(x)[[i]], sentinels(x)[i])
+  create_sentineled(
+    as.numeric(x)[[i, exact = exact]],
+    sentinels(x)[i, exact = exact]
+  )
 }
 
 

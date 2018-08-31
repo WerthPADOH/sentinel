@@ -213,7 +213,7 @@ format.sentineled <- function(x,
 #' @noRd
 #' @export
 as.character.sentineled <- function(x, ...) {
-  x_num <- as.numeric(x)
-  x_sent <- sentinels(x)
-  ifelse(is.na(x), as.character(x_sent, ...), as.character(x_num, ...))
+  out <- as.character(as.numeric(x))
+  out[is.na(x)] <- as.character(sentinels(x)[is.na(x)])
+  out
 }

@@ -208,3 +208,12 @@ format.sentineled <- function(x,
   }
   out
 }
+
+
+#' @noRd
+#' @export
+as.character.sentineled <- function(x, ...) {
+  x_num <- as.numeric(x)
+  x_sent <- sentinels(x)
+  ifelse(is.na(x), as.character(x_sent, ...), as.character(x_num, ...))
+}

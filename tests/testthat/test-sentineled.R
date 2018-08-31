@@ -101,3 +101,9 @@ test_that("sentineled vectors are good for use", {
   expect_identical(as.numeric(sub_x), NA_real_)
   expect_identical(is.na(s), c(FALSE, TRUE, TRUE))
 })
+
+test_that("sentineled converts like mixed numeric/factor to character", {
+  s <- sentineled(c(1, 2, 3, NA), c(2, 3), c("x", "y"))
+  char <- as.character(s)
+  expect_identical(char, c("1", "x", "y", NA))
+})

@@ -1,7 +1,6 @@
 library(testthat)
-library(naaccr)
 
-context("sentineled behavior")
+context("basic methods")
 
 test_that("sentineled stores sentinel levels properly", {
   s <- sentineled(NA, "cat")
